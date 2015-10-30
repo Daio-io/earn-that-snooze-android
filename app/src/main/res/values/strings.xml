@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">EarnThatSnooze</string>
+    
+    <!-- *** Strings related to Settings *** -->
+
+    <!-- Quiz settings -->
+    <string name="pref_header_quiz">Quiz Settings</string>
+    <string name="pref_test_quiz">Test Setting</string>
+    <string name="pref_test_quiz_summary">This is some summary text</string>
+
+    <!-- Alarm settings -->
+    <string name="pref_header_alarm">Alarm Settings</string>
+
+</resources>
