@@ -1,16 +1,8 @@
 package io.daio.earnthatsnooze;
 
 
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.preference.ListPreference;
-import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
-import android.text.TextUtils;
 
 import java.util.List;
 
@@ -30,7 +22,7 @@ public class AlarmSettingsActivity extends PreferenceActivity {
     }
 
 
-    // Not required but leaving encase activity is exported in the future
+    // Not required but leaving here for now - activity may be exported in the future
     @Override
     protected boolean isValidFragment(String fragmentName) {
         return AlarmPreferencesFragment.class.getName().equals(fragmentName)
