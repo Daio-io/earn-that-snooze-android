@@ -1,4 +1,5 @@
 <resources>
+
     <string name="app_name">Earn That Snooze</string>
     
     <!-- *** Strings related to Settings *** -->
@@ -6,9 +7,10 @@
     <!-- Quiz settings -->
     <string name="pref_header_quiz">Quiz Settings</string>
     <string name="pref_test_quiz">Test Setting</string>
-    <string name="pref_test_quiz_summary">This is some summary text</string>
+    <string name="pref_quiz_summary">Configure the Questions displayed on Alarm</string>
 
-    <!-- Alarm settings -->
-    <string name="pref_header_alarm">Alarm Settings</string>
+
+    <string name="title_activity_settings">Settings</string>
+
 
 </resources>

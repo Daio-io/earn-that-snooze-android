@@ -12,7 +12,6 @@ public class AlarmModel {
     public int minute;
     public Uri alertTone;
     public boolean isEnabled;
-    public boolean repeatWeekly;
 
     private boolean[] daysToRepeat;
 

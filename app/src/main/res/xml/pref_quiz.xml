@@ -3,7 +3,6 @@
     <SwitchPreference
         android:key="test_switch"
         android:title="@string/pref_test_quiz"
-        android:summary="@string/pref_test_quiz_summary"
         android:defaultValue="true" />
 
 </PreferenceScreen>

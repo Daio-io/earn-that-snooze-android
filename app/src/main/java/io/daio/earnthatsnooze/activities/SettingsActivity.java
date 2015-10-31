@@ -1,4 +1,4 @@
-package io.daio.earnthatsnooze;
+package io.daio.earnthatsnooze.activities;
 
 
 import android.os.Bundle;
@@ -6,10 +6,10 @@ import android.preference.PreferenceActivity;
 
 import java.util.List;
 
-import io.daio.earnthatsnooze.fragments.AlarmPreferencesFragment;
+import io.daio.earnthatsnooze.R;
 import io.daio.earnthatsnooze.fragments.QuizPreferenceFragment;
 
-public class AlarmSettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends PreferenceActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +21,9 @@ public class AlarmSettingsActivity extends PreferenceActivity {
         loadHeadersFromResource(R.xml.pref_headers, target);
     }
 
-
-    // Not required but leaving here for now - activity may be exported in the future
     @Override
     protected boolean isValidFragment(String fragmentName) {
-        return AlarmPreferencesFragment.class.getName().equals(fragmentName)
-                || QuizPreferenceFragment.class.getName().equals(fragmentName);
+        return QuizPreferenceFragment.class.getName().equals(fragmentName);
     }
 
 
