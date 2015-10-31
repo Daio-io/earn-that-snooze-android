@@ -27,7 +27,6 @@ public final class AlarmRepository {
         realm.commitTransaction();
     }
 
-    @Nullable
     public Iterable<AlarmModel> getAll() {
         return realm.where(AlarmModel.class)
                 .findAll();
