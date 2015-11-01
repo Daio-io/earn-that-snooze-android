@@ -1,8 +1,8 @@
 package io.daio.earnthatsnooze.repository;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import io.daio.earnthatsnooze.App;
 import io.daio.earnthatsnooze.models.AlarmModel;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -10,13 +10,20 @@ import io.realm.RealmResults;
 public final class AlarmRepository {
 
     private static AlarmRepository alarmRepo;
-    private Realm realm = Realm.getInstance(App.getAppContext());
+    private static Realm realm;
 
     private AlarmRepository() {}
 
+    public static void initRepository(@NonNull Realm databaseContext) {
+        if (alarmRepo == null){
+            realm = databaseContext;
+            alarmRepo = new AlarmRepository();
+        }
+    }
+
     public static AlarmRepository getInstance() {
         if (alarmRepo == null) {
-            alarmRepo = new AlarmRepository();
+            throw new Error("Repository has not been initialised. You must call InitRepository first");
         }
         return alarmRepo;
     }
