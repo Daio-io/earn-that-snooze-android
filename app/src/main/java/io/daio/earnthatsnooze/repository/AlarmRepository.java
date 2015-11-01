@@ -38,7 +38,7 @@ public final class AlarmRepository {
                 .equalTo("id", id)
                 .findAll();
 
-        if (models.size() == 0) {
+        if (models.isEmpty()) {
             return null;
         }
         return models.first();
