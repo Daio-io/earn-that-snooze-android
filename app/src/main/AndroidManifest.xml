@@ -24,6 +24,13 @@
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <service android:name="io.daio.earnthatsnooze.services.ETSAlarmService" android:enabled="true"/>
+        <receiver android:name="io.daio.earnthatsnooze.managers.ETSAlarmManager" >
+            <!-- Ensure Alarms are re-set on system rebbot -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
