@@ -1,5 +1,8 @@
 package io.daio.earnthatsnooze.models;
 
+import java.util.List;
+
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -13,6 +16,8 @@ public class AlarmModel extends RealmObject {
 
     private int hour;
     private int minute;
+    private RealmList<WeekDayModel> repeatingDays;
+
     private boolean isEnabled = false;
 
     public long getId() {
@@ -37,6 +42,14 @@ public class AlarmModel extends RealmObject {
 
     public void setMinute(int minute) {
         this.minute = minute;
+    }
+
+    public RealmList<WeekDayModel> getRepeatingDays() {
+        return repeatingDays;
+    }
+
+    public void setRepeatingDays(RealmList<WeekDayModel> repeatingDays) {
+        this.repeatingDays = repeatingDays;
     }
 
     public boolean isEnabled() {
