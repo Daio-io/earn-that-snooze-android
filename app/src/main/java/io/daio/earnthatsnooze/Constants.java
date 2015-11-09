@@ -1,6 +1,6 @@
 package io.daio.earnthatsnooze;
 
-public class ETSConstants {
+public class Constants {
 
     // ** ALARM MANAGER CONSTANTS ** //
     public static final String ALARM_ID_KEY = "ALARM_ID";

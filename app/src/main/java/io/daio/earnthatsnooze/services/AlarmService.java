@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import io.daio.earnthatsnooze.managers.ETSAlarmManager;
+import io.daio.earnthatsnooze.managers.AlarmManager;
 
-public class ETSAlarmService extends Service {
+public class AlarmService extends Service {
 
-    ETSAlarmManager alarmManager = new ETSAlarmManager();
+    AlarmManager alarmManager = new AlarmManager();
 
     @Nullable
     @Override
