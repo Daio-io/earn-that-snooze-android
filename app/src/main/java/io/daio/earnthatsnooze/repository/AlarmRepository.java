@@ -3,6 +3,8 @@ package io.daio.earnthatsnooze.repository;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import java.util.List;
+
 import io.daio.earnthatsnooze.models.AlarmModel;
 import io.realm.Realm;
 import io.realm.RealmResults;
@@ -34,7 +36,7 @@ public final class AlarmRepository {
         realm.commitTransaction();
     }
 
-    public Iterable<AlarmModel> getAll() {
+    public List<AlarmModel> getAll() {
         return realm.where(AlarmModel.class)
                 .findAll();
     }
