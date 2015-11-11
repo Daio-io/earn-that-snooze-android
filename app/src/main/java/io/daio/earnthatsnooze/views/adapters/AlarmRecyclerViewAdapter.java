@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.List;
@@ -33,18 +33,21 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
     @Override
     public void onBindViewHolder(AlarmListViewHolder holder, int position) {
         holder.mAlarmTimeText.setText("7:50pm");
+        holder.mDaysAvailable.setText("mon, tue, fri");
+        holder.mEnableSwitch.setChecked(true);
     }
 
     @Override
     public int getItemCount() {
-        return alarmModels != null ? alarmModels.size() : 0;
+        return alarmModels != null ? alarmModels.size() : 1;
     }
 
 
     public class AlarmListViewHolder extends RecyclerView.ViewHolder {
 
         @Bind(R.id.alarmTime) TextView mAlarmTimeText;
-        @Bind(R.id.thumbnail) ImageView mThumbnail;
+        @Bind(R.id.enableSwitch) Switch mEnableSwitch;
+        @Bind(R.id.daysText) TextView mDaysAvailable;
 
         public AlarmListViewHolder(View itemView) {
             super(itemView);
