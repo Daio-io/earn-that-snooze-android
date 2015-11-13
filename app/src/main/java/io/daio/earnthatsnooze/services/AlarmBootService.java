@@ -7,9 +7,9 @@ import android.support.annotation.Nullable;
 
 import io.daio.earnthatsnooze.managers.AlarmManager;
 
-public class AlarmService extends Service {
+public class AlarmBootService extends Service {
 
-    AlarmManager alarmManager = new AlarmManager();
+    private AlarmManager alarmManager = new AlarmManager();
 
     @Nullable
     @Override
