@@ -6,24 +6,30 @@ import io.realm.annotations.PrimaryKey;
 
 public class AlarmModel extends RealmObject {
 
-    public static int MONDAY = 1, TUESDAY = 2, WEDNESDAY = 3,
-        THURSDAY = 4, FRIDAY = 5, SATURDAY = 6, SUNDAY = 7;
-
     @PrimaryKey
-    private long id;
+    private int id;
 
+    private String alarmName;
     private int hour;
     private int minute;
     private RealmList<WeekDayModel> repeatingDays;
 
     private boolean isEnabled = false;
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getAlarmName() {
+        return alarmName;
+    }
+
+    public void setAlarmName(String name) {
+        this.alarmName = name;
     }
 
     public int getHour() {
