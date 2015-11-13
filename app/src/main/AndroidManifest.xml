@@ -24,7 +24,7 @@
             android:label="@string/title_activity_settings"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-        <service android:name=".services.AlarmService" android:enabled="true"/>
+        <service android:name=".services.AlarmBootService" android:enabled="true"/>
         <receiver android:name=".managers.AlarmManager" >
             <!-- Ensure Alarms are re-set on system rebbot -->
             <intent-filter>
