@@ -12,6 +12,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.daio.earnthatsnooze.App;
 import io.daio.earnthatsnooze.R;
+import io.daio.earnthatsnooze.managers.AlarmManager;
 import io.daio.earnthatsnooze.repository.AlarmRepository;
 import io.daio.earnthatsnooze.repository.RepositoryFactory;
 import io.daio.earnthatsnooze.views.adapters.AlarmRecyclerViewAdapter;
@@ -21,7 +22,16 @@ public class AlarmListFragment extends Fragment implements AlarmRepository.OnCha
 
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
     private AlarmRecyclerViewAdapter alarmRecyclerViewAdapter;
+    private AlarmManager alarmManager;
     private AlarmRepository alarmRepository;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        alarmRepository = RepositoryFactory.getAlarmRepository(App.getAppContext());
+        alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(alarmRepository);
+        alarmManager = new AlarmManager(App.getAppContext(), alarmRepository);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,28 +39,28 @@ public class AlarmListFragment extends Fragment implements AlarmRepository.OnCha
         View view = inflater.inflate(R.layout.fragment_alarm_list, container, false);
         ButterKnife.bind(this, view);
 
-        alarmRepository = RepositoryFactory.getAlarmRepository(App.getAppContext());
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(App.getAppContext()));
-
-        alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(alarmRepository);
-
         mRecyclerView.setAdapter(alarmRecyclerViewAdapter);
 
         return view;
-
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        removeListeners();
+    public void onStart() {
+        super.onStart();
+        addListeners();
     }
 
     @Override
     public void onResume() {
         super.onResume();
         addListeners();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        removeListeners();
     }
 
     @Override
@@ -72,21 +82,22 @@ public class AlarmListFragment extends Fragment implements AlarmRepository.OnCha
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        addListeners();
-    }
-
-    @Override
     public void onDataChanged() {
         alarmRecyclerViewAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onAlarmStateChanged() {
+
+    }
+
     public void addListeners() {
         alarmRepository.addListener(this);
+        alarmRepository.addListener(alarmManager);
     }
 
     private void removeListeners() {
         alarmRepository.removeListener(this);
+        alarmRepository.removeListener(alarmManager);
     }
 }

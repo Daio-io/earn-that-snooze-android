@@ -25,13 +25,14 @@ public final class AlarmRepository {
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(model);
         realm.commitTransaction();
-        notifyConsumers();
+        notifyListeners();
     }
 
-    public void enableAlarm(AlarmModel model, boolean enable) {
+    public void updateAlarmState(AlarmModel model, boolean enabled) {
         realm.beginTransaction();
-        model.setIsEnabled(enable);
+        model.setIsEnabled(enabled);
         realm.commitTransaction();
+        notifyListenersStateChange();
     }
 
     public List<AlarmModel> getAll() {
@@ -51,18 +52,6 @@ public final class AlarmRepository {
         return models.first();
     }
 
-    @Nullable
-    public AlarmModel getByName(String name) {
-        RealmResults<AlarmModel> models = realm.where(AlarmModel.class)
-                .equalTo("alarmName", name)
-                .findAll();
-
-        if (models.isEmpty()) {
-            return null;
-        }
-        return models.first();
-    }
-
     public void removeById(long id) {
         realm.beginTransaction();
         RealmResults<AlarmModel> results = realm.where(AlarmModel.class)
@@ -71,7 +60,7 @@ public final class AlarmRepository {
 
         results.clear();
         realm.commitTransaction();
-        notifyConsumers();
+        notifyListeners();
     }
 
     public void addListener(OnChangeListener listener) {
@@ -82,14 +71,20 @@ public final class AlarmRepository {
         listeners.remove(listener);
     }
 
-
-    private void notifyConsumers() {
+    private void notifyListeners() {
         for (OnChangeListener onChangeListener : listeners) {
             onChangeListener.onDataChanged();
         }
     }
 
+    private void notifyListenersStateChange() {
+        for (OnChangeListener onChangeListener : listeners) {
+            onChangeListener.onAlarmStateChanged();
+        }
+    }
+
     public interface OnChangeListener {
         void onDataChanged();
+        void onAlarmStateChanged();
     }
 }
