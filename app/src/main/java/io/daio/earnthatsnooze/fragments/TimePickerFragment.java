@@ -9,13 +9,24 @@ import android.widget.TimePicker;
 
 import java.util.Calendar;
 
+import io.daio.earnthatsnooze.App;
+import io.daio.earnthatsnooze.models.AlarmModel;
+import io.daio.earnthatsnooze.models.WeekDayModel;
+import io.daio.earnthatsnooze.repository.AlarmRepository;
+import io.daio.earnthatsnooze.repository.RepositoryFactory;
+import io.daio.earnthatsnooze.services.AlarmCreationService;
+import io.realm.RealmList;
+
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
+    private AlarmCreationService alarmCreationService;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
+
+        alarmCreationService = new AlarmCreationService(RepositoryFactory.getAlarmRepository(App.getAppContext()));
 
         return new TimePickerDialog(getActivity(), this, hour, minute,
                 DateFormat.is24HourFormat(getActivity()));
@@ -23,6 +34,6 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
+        alarmCreationService.createNewAlarm(hourOfDay, minute);
     }
 }

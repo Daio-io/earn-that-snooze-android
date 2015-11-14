@@ -17,24 +17,11 @@ public class App extends Application {
 
         mContext = getApplicationContext();
 
-        initRepositories();
-
     }
 
     public static Context getAppContext() {
         return mContext;
     }
 
-    // Initialise the Realm Database and Repositories
-    private void initRepositories() {
-        RealmConfiguration realmConfig = new RealmConfiguration.Builder(mContext)
-                .name("ets.realm")
-                .schemaVersion(1)
-                .deleteRealmIfMigrationNeeded()
-                .build();
-
-        Realm realm = Realm.getInstance(realmConfig);
-        AlarmRepository.initRepository(realm);
-    }
 
 }

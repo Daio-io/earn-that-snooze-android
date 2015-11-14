@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="110dp"
+    android:orientation="vertical"
+    android:layout_margin="10dp">
+
+    <TextView
+        android:id="@+id/alarmTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:maxLines="1"
+        android:padding="4dp"
+        android:text="7:30am"
+        android:textColor="#222"
+        android:textSize="40sp" />
+
+    <Switch
+        android:id="@+id/enableSwitch"
+        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_above="@+id/daysText"
+        android:padding="4dp"
+        />
+
+    <TextView
+        android:id="@+id/daysText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_below="@+id/alarmTime"
+        android:maxLines="1"
+        android:padding="4dp"
+        android:text="mon,tue,fri"
+        android:textColor="#222"/>
+
+</RelativeLayout>

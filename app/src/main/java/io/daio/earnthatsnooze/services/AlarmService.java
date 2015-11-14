@@ -5,11 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import io.daio.earnthatsnooze.managers.AlarmManager;
-
 public class AlarmService extends Service {
-
-    AlarmManager alarmManager = new AlarmManager();
 
     @Nullable
     @Override
@@ -19,7 +15,7 @@ public class AlarmService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        alarmManager.setAlarms(getApplicationContext());
+        System.out.println("ALARM FIRED!");
         return super.onStartCommand(intent, flags, startId);
     }
 
