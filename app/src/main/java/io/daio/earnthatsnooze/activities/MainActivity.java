@@ -1,11 +1,12 @@
 package io.daio.earnthatsnooze.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import io.daio.earnthatsnooze.R;
+import io.daio.earnthatsnooze.fragments.TimePickerFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,12 +14,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ButterKnife.bind(this);
+    }
 
-        // Break out from activity
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_alarm_fab);
-
+    @OnClick(R.id.add_alarm_fab)
+    public void showTimerPickerFragement() {
+        TimePickerFragment timePickerFragment = new TimePickerFragment();
+        timePickerFragment.show(getFragmentManager(), "ADD_ALARM");
     }
 
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.daio.earnthatsnooze" >
+    package="io.daio.earnthatsnooze">
 
     <application
         android:name=".App"
@@ -22,15 +22,17 @@
         <activity
             android:name=".activities.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-        <service android:name=".services.AlarmBootService" android:enabled="true"/>
-        <receiver android:name=".managers.AlarmManager" >
-            <!-- Ensure Alarms are re-set on system rebbot -->
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <service
+            android:name=".services.AlarmService"
+            android:enabled="true" />
+        <!--<receiver android:name=".managers.AlarmManager" >-->
+        <!--&lt;!&ndash; Ensure Alarms are re-set on system reboot &ndash;&gt;-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.BOOT_COMPLETED" />-->
+        <!--</intent-filter>-->
+        <!--</receiver>-->
     </application>
 
 </manifest>
