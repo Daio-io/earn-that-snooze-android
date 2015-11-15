@@ -36,19 +36,8 @@ public class AlarmManager implements AlarmRepository.OnChangeListener {
                 calendar.set(Calendar.MINUTE, alarm.getMinute());
                 calendar.set(Calendar.SECOND, 0);
 
+                // TODO set repeating days
                 List<WeekDayModel> repeatingDays = alarm.getRepeatingDays();
-
-                for (WeekDayModel weekDayModel : repeatingDays) {
-
-                    if (calendar.get(Calendar.DAY_OF_WEEK) > weekDayModel.getWeekDay()
-                            || (calendar.get(Calendar.DAY_OF_WEEK) == weekDayModel.getWeekDay()
-                            && Calendar.getInstance().get(Calendar.HOUR_OF_DAY) > alarm.getHour()) ){
-
-                        int repeat = calendar.get(Calendar.WEEK_OF_MONTH);
-                        calendar.set(Calendar.WEEK_OF_MONTH, repeat++);
-                    }
-                    calendar.set(Calendar.DAY_OF_WEEK, weekDayModel.getWeekDay());
-                }
 
                 setAlarm(calendar, pendingIntent);
             }
