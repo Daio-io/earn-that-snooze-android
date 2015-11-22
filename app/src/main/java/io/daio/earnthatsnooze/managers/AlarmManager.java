@@ -15,10 +15,7 @@ import io.daio.earnthatsnooze.models.WeekDayModel;
 import io.daio.earnthatsnooze.repository.AlarmRepository;
 import io.daio.earnthatsnooze.services.AlarmService;
 
-import static io.daio.earnthatsnooze.utils.CalendarUtil.hasTimePassed;
-import static io.daio.earnthatsnooze.utils.CalendarUtil.isNextWeek;
-import static io.daio.earnthatsnooze.utils.CalendarUtil.isThisWeek;
-import static io.daio.earnthatsnooze.utils.CalendarUtil.isToday;
+import static io.daio.earnthatsnooze.utils.CalendarUtil.*;
 
 public class AlarmManager implements AlarmRepository.OnChangeListener {
 
@@ -136,6 +133,5 @@ public class AlarmManager implements AlarmRepository.OnChangeListener {
     public void onAlarmStateChanged() {
         setAlarms();
     }
-
 
 }
