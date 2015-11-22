@@ -43,7 +43,7 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
         holder.mAlarmTimeText.setText(displayString);
         holder.mDaysAvailable.setText("mon, tue, fri");
         holder.mEnableSwitch.setChecked(currentAlarm.isEnabled());
-        holder.mEnableSwitch.setOnCheckedChangeListener(new AlarmSwitchCheckedListener(currentAlarm, alarmRepository));
+        holder.mEnableSwitch.setOnCheckedChangeListener(new AlarmSwitchCheckedHandler(currentAlarm, alarmRepository));
     }
 
     @Override
@@ -64,12 +64,12 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
         }
     }
 
-    class AlarmSwitchCheckedListener implements CompoundButton.OnCheckedChangeListener {
+    class AlarmSwitchCheckedHandler implements CompoundButton.OnCheckedChangeListener {
 
         private AlarmModel alarmModel;
         private AlarmRepository alarmRepository;
 
-        public AlarmSwitchCheckedListener(AlarmModel alarmModel, AlarmRepository alarmRepository) {
+        public AlarmSwitchCheckedHandler(AlarmModel alarmModel, AlarmRepository alarmRepository) {
             this.alarmModel = alarmModel;
             this.alarmRepository = alarmRepository;
         }
