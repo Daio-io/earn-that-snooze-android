@@ -10,12 +10,8 @@ import android.widget.TimePicker;
 import java.util.Calendar;
 
 import io.daio.earnthatsnooze.App;
-import io.daio.earnthatsnooze.models.AlarmModel;
-import io.daio.earnthatsnooze.models.WeekDayModel;
-import io.daio.earnthatsnooze.repository.AlarmRepository;
 import io.daio.earnthatsnooze.repository.RepositoryFactory;
 import io.daio.earnthatsnooze.services.AlarmCreationService;
-import io.realm.RealmList;
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 

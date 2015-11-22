@@ -91,7 +91,7 @@ public class AlarmListFragment extends Fragment implements AlarmRepository.OnCha
 
     }
 
-    public void addListeners() {
+    private void addListeners() {
         alarmRepository.addListener(this);
         alarmRepository.addListener(alarmManager);
     }
