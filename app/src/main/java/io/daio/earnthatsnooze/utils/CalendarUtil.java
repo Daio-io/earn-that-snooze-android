@@ -4,8 +4,6 @@ import java.util.Calendar;
 
 public class CalendarUtil {
 
-    private static Calendar calendar = Calendar.getInstance();
-
     public static boolean isToday(int dateToCheck) {
 
         return dateToCheck == getCurrentDay();
@@ -34,14 +32,15 @@ public class CalendarUtil {
 
     }
 
-    public static boolean hasTimePassed(int hour, int minute, int second) {
+    public static boolean hasTimePassed(int hour, int minute) {
+        Calendar calendar = Calendar.getInstance();
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = calendar.get(Calendar.MINUTE);
-        int currentSecond = calendar.get(Calendar.MILLISECOND);
+        int currentMilli = calendar.get(Calendar.MILLISECOND);
 
         return currentHour > hour
-                || currentHour == hour && currentMinute > minute
-                || currentHour == hour && currentMinute == minute && currentSecond > second;
+                || (currentHour == hour && currentMinute > minute)
+                || (currentHour == hour && currentMinute == minute && currentMilli > 0);
     }
 
     private static int getCurrentDay() {
