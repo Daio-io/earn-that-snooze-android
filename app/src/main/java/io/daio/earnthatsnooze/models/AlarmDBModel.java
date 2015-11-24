@@ -11,7 +11,7 @@ public class AlarmDBModel extends RealmObject {
 
     private int hour;
     private int minute;
-    private RealmList<WeekDayModel> repeatingDays;
+    private RealmList<WeekDayDBModel> repeatingDays;
 
     private boolean isEnabled = false;
 
@@ -39,11 +39,11 @@ public class AlarmDBModel extends RealmObject {
         this.minute = minute;
     }
 
-    public RealmList<WeekDayModel> getRepeatingDays() {
+    public RealmList<WeekDayDBModel> getRepeatingDays() {
         return repeatingDays;
     }
 
-    public void setRepeatingDays(RealmList<WeekDayModel> repeatingDays) {
+    public void setRepeatingDays(RealmList<WeekDayDBModel> repeatingDays) {
         this.repeatingDays = repeatingDays;
     }
 
