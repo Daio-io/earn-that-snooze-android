@@ -1,5 +1,7 @@
 package io.daio.earnthatsnooze.alarm;
 
+import android.support.annotation.Nullable;
+
 import java.util.List;
 
 import io.daio.earnthatsnooze.models.AlarmDBModel;
@@ -18,7 +20,6 @@ public final class AlarmModelService {
 
     public List<Alarm> getAllAlarms() {
         List<AlarmDBModel> alarmDBModels = alarmRepository.getAll();
-        System.out.println(alarmDBModels);
         return alarmTransformer.transform(alarmDBModels);
     }
 
