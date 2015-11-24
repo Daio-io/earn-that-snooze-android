@@ -1,17 +1,17 @@
-package io.daio.earnthatsnooze.models;
+package io.daio.earnthatsnooze.alarm;
 
-import io.realm.RealmList;
-import io.realm.RealmObject;
-import io.realm.annotations.PrimaryKey;
+import java.util.HashMap;
 
-public class AlarmModel extends RealmObject {
+public final class Alarm {
 
-    @PrimaryKey
+    public Alarm() {
+        repeatingDays = new HashMap<>();
+    }
+
     private long id;
-
     private int hour;
     private int minute;
-    private RealmList<WeekDayModel> repeatingDays;
+    private HashMap<Integer, WeekDay> repeatingDays;
 
     private boolean isEnabled = false;
 
@@ -39,12 +39,12 @@ public class AlarmModel extends RealmObject {
         this.minute = minute;
     }
 
-    public RealmList<WeekDayModel> getRepeatingDays() {
+    public HashMap<Integer, WeekDay> getRepeatingDays() {
         return repeatingDays;
     }
 
-    public void setRepeatingDays(RealmList<WeekDayModel> repeatingDays) {
-        this.repeatingDays = repeatingDays;
+    public void addRepeatingDay(WeekDay day) {
+        this.repeatingDays.put(day.getValue(), day);
     }
 
     public boolean isEnabled() {
