@@ -7,42 +7,35 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import io.daio.earnthatsnooze.models.AlarmModel;
+import io.daio.earnthatsnooze.models.AlarmDBModel;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
 public final class AlarmRepository {
 
-    private static Realm realm;
-    private static Set<OnChangeListener> listeners;
+    private Realm realm;
+    private Set<OnChangeListener> listeners;
 
     public AlarmRepository(@NonNull Realm databaseContext) {
         realm = databaseContext;
         listeners = new HashSet<>();
     }
 
-    public void save(AlarmModel model) {
+    public void save(AlarmDBModel model) {
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(model);
         realm.commitTransaction();
         notifyListeners();
     }
 
-    public void updateAlarmState(AlarmModel model, boolean enabled) {
-        realm.beginTransaction();
-        model.setIsEnabled(enabled);
-        realm.commitTransaction();
-        notifyListenersStateChange();
-    }
-
-    public List<AlarmModel> getAll() {
-        return realm.where(AlarmModel.class)
+    public List<AlarmDBModel> getAll() {
+        return realm.where(AlarmDBModel.class)
                 .findAll();
     }
 
     @Nullable
-    public AlarmModel getById(long id) {
-        RealmResults<AlarmModel> models = realm.where(AlarmModel.class)
+    public AlarmDBModel getById(long id) {
+        RealmResults<AlarmDBModel> models = realm.where(AlarmDBModel.class)
                 .equalTo("id", id)
                 .findAll();
 
@@ -54,11 +47,19 @@ public final class AlarmRepository {
 
     public void removeById(long id) {
         realm.beginTransaction();
-        RealmResults<AlarmModel> results = realm.where(AlarmModel.class)
+        RealmResults<AlarmDBModel> results = realm.where(AlarmDBModel.class)
                 .equalTo("id", id)
                 .findAll();
 
         results.clear();
+        realm.commitTransaction();
+        notifyListeners();
+    }
+
+    public void clearAll() {
+        realm.beginTransaction();
+        realm.where(AlarmDBModel.class)
+                .findAll().clear();
         realm.commitTransaction();
         notifyListeners();
     }
@@ -77,14 +78,7 @@ public final class AlarmRepository {
         }
     }
 
-    private void notifyListenersStateChange() {
-        for (OnChangeListener onChangeListener : listeners) {
-            onChangeListener.onAlarmStateChanged();
-        }
-    }
-
     public interface OnChangeListener {
         void onDataChanged();
-        void onAlarmStateChanged();
     }
 }

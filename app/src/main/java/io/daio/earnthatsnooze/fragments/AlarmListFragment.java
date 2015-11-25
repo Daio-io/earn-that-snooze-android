@@ -12,25 +12,26 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.daio.earnthatsnooze.App;
 import io.daio.earnthatsnooze.R;
+import io.daio.earnthatsnooze.alarm.Alarm;
+import io.daio.earnthatsnooze.alarm.AlarmFactory;
+import io.daio.earnthatsnooze.alarm.AlarmModelService;
 import io.daio.earnthatsnooze.managers.AlarmManager;
-import io.daio.earnthatsnooze.repository.AlarmRepository;
-import io.daio.earnthatsnooze.repository.RepositoryFactory;
 import io.daio.earnthatsnooze.views.adapters.AlarmRecyclerViewAdapter;
 
 
-public class AlarmListFragment extends Fragment implements AlarmRepository.OnChangeListener {
+public class AlarmListFragment extends Fragment implements AlarmModelService.OnSaveAlarmListener {
 
     @Bind(R.id.recycler_view) RecyclerView mRecyclerView;
     private AlarmRecyclerViewAdapter alarmRecyclerViewAdapter;
     private AlarmManager alarmManager;
-    private AlarmRepository alarmRepository;
+    private AlarmModelService alarmModelService;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        alarmRepository = RepositoryFactory.getAlarmRepository(App.getAppContext());
-        alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(alarmRepository);
-        alarmManager = new AlarmManager(App.getAppContext(), alarmRepository);
+        alarmModelService = AlarmFactory.getAlarmModelService();
+        alarmRecyclerViewAdapter = new AlarmRecyclerViewAdapter(AlarmFactory.getAlarmModelService());
+        alarmManager = new AlarmManager(App.getAppContext(), AlarmFactory.getAlarmModelService());
     }
 
     @Override
@@ -81,23 +82,18 @@ public class AlarmListFragment extends Fragment implements AlarmRepository.OnCha
         removeListeners();
     }
 
-    @Override
-    public void onDataChanged() {
-        alarmRecyclerViewAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void onAlarmStateChanged() {
-
-    }
-
     private void addListeners() {
-        alarmRepository.addListener(this);
-        alarmRepository.addListener(alarmManager);
+        alarmModelService.addListener(this);
+        alarmModelService.addListener(alarmManager);
     }
 
     private void removeListeners() {
-        alarmRepository.removeListener(this);
-        alarmRepository.removeListener(alarmManager);
+        alarmModelService.removeListener(this);
+        alarmModelService.removeListener(alarmManager);
+    }
+
+    @Override
+    public void onAlarmDataChanged(Alarm alarm) {
+        alarmRecyclerViewAdapter.setAlarms(alarmModelService.getAllAlarms());
     }
 }

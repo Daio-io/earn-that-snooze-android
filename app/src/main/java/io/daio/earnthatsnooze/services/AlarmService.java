@@ -10,15 +10,12 @@ import android.support.annotation.Nullable;
 import io.daio.earnthatsnooze.App;
 import io.daio.earnthatsnooze.Constants;
 import io.daio.earnthatsnooze.R;
-import io.daio.earnthatsnooze.alarm.AlarmModelService;
-import io.daio.earnthatsnooze.alarm.AlarmTransformer;
+import io.daio.earnthatsnooze.alarm.AlarmFactory;
 import io.daio.earnthatsnooze.managers.AlarmManager;
-import io.daio.earnthatsnooze.repository.RepositoryFactory;
 
 public class AlarmService extends Service {
 
-    AlarmManager alarmManager = new AlarmManager(App.getAppContext(),
-            new AlarmModelService(RepositoryFactory.getAlarmRepository(App.getAppContext()), new AlarmTransformer()));
+    AlarmManager alarmManager = new AlarmManager(App.getAppContext(), AlarmFactory.getAlarmModelService());
 
     @Nullable
     @Override

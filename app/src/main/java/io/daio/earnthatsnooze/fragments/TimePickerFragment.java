@@ -9,20 +9,21 @@ import android.widget.TimePicker;
 
 import java.util.Calendar;
 
-import io.daio.earnthatsnooze.App;
-import io.daio.earnthatsnooze.repository.RepositoryFactory;
-import io.daio.earnthatsnooze.services.AlarmCreationService;
+import io.daio.earnthatsnooze.alarm.Alarm;
+import io.daio.earnthatsnooze.alarm.AlarmFactory;
+import io.daio.earnthatsnooze.alarm.AlarmModelService;
+import io.daio.earnthatsnooze.alarm.WeekDay;
 
 public class TimePickerFragment extends DialogFragment implements TimePickerDialog.OnTimeSetListener {
 
-    private AlarmCreationService alarmCreationService;
+    private AlarmModelService alarmModelService;
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         final Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
-        alarmCreationService = new AlarmCreationService(RepositoryFactory.getAlarmRepository(App.getAppContext()));
+        alarmModelService = AlarmFactory.getAlarmModelService();
 
         return new TimePickerDialog(getActivity(), this, hour, minute,
                 DateFormat.is24HourFormat(getActivity()));
@@ -30,6 +31,9 @@ public class TimePickerFragment extends DialogFragment implements TimePickerDial
 
     @Override
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        alarmCreationService.createNewAlarm(hourOfDay, minute);
+
+        Alarm alarm = alarmModelService.createNewAlarm(hourOfDay, minute);
+        alarm.addRepeatingDay(WeekDay.WEDNESDAY);
+        alarmModelService.saveOrUpdate(alarm);
     }
 }
