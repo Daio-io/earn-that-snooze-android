@@ -13,19 +13,23 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import io.daio.earnthatsnooze.R;
-import io.daio.earnthatsnooze.models.AlarmModel;
-import io.daio.earnthatsnooze.repository.AlarmRepository;
+import io.daio.earnthatsnooze.alarm.Alarm;
+import io.daio.earnthatsnooze.alarm.AlarmModelService;
 
 
 public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecyclerViewAdapter.AlarmListViewHolder> {
 
-    private List<AlarmModel> alarmModels;
-    private AlarmRepository alarmRepository;
+    private List<Alarm> alarms;
+    private AlarmModelService alarmModelService;
 
+    public AlarmRecyclerViewAdapter(AlarmModelService alarmModelService) {
+        this.alarmModelService = alarmModelService;
+        this.alarms = alarmModelService.getAllAlarms();
+    }
 
-    public AlarmRecyclerViewAdapter(AlarmRepository alarmRepository) {
-        this.alarmModels = alarmRepository.getAll();
-        this.alarmRepository = alarmRepository;
+    public void setAlarms(List<Alarm> alarms) {
+        this.alarms = alarms;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -37,20 +41,19 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
 
     @Override
     public void onBindViewHolder(AlarmListViewHolder holder, final int position) {
-        AlarmModel currentAlarm = alarmModels.get(position);
+        Alarm currentAlarm = alarms.get(position);
         String displayString = Integer.toString(currentAlarm.getHour())
                 + ":" + Integer.toString(currentAlarm.getMinute());
         holder.mAlarmTimeText.setText(displayString);
         holder.mDaysAvailable.setText("mon, tue, fri");
         holder.mEnableSwitch.setChecked(currentAlarm.isEnabled());
-        holder.mEnableSwitch.setOnCheckedChangeListener(new AlarmSwitchCheckedHandler(currentAlarm, alarmRepository));
+        holder.mEnableSwitch.setOnCheckedChangeListener(new AlarmSwitchCheckedHandler(currentAlarm, alarmModelService));
     }
 
     @Override
     public int getItemCount() {
-        return alarmModels != null ? alarmModels.size() : 0;
+        return alarms != null ? alarms.size() : 0;
     }
-
 
     class AlarmListViewHolder extends RecyclerView.ViewHolder {
 
@@ -66,18 +69,19 @@ public class AlarmRecyclerViewAdapter extends RecyclerView.Adapter<AlarmRecycler
 
     class AlarmSwitchCheckedHandler implements CompoundButton.OnCheckedChangeListener {
 
-        private AlarmModel alarmModel;
-        private AlarmRepository alarmRepository;
+        private final AlarmModelService alarmModelService;
+        private Alarm alarm;
 
-        public AlarmSwitchCheckedHandler(AlarmModel alarmModel, AlarmRepository alarmRepository) {
-            this.alarmModel = alarmModel;
-            this.alarmRepository = alarmRepository;
+        public AlarmSwitchCheckedHandler(Alarm alarm, AlarmModelService alarmModelService) {
+            this.alarm = alarm;
+            this.alarmModelService = alarmModelService;
         }
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-            if (alarmModel != null && alarmModel.isEnabled() != isChecked) {
-                alarmRepository.updateAlarmState(alarmModel, isChecked);
+            if (alarm != null && alarm.isEnabled() != isChecked) {
+                alarm.setIsEnabled(isChecked);
+                alarmModelService.saveOrUpdate(alarm);
             }
         }
     }

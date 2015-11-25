@@ -20,6 +20,7 @@ public class AlarmTransformer {
             Alarm alarm = AlarmFactory.newAlarm(alarmDBModel.getId(),
                     alarmDBModel.getHour(),
                     alarmDBModel.getMinute());
+            alarm.setIsEnabled(alarmDBModel.isEnabled());
 
             addRepeatingDays(alarm, alarmDBModel);
             alarms.add(i, alarm);
